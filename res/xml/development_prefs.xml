@@ -36,6 +36,12 @@
         android:entries="@array/root_access_entries"
         android:entryValues="@array/root_access_values" />
 
+    <CheckBoxPreference
+        android:key="adb_notify"
+        android:title="@string/adb_notify"
+        android:summary="@string/adb_notify_summary"
+        android:dependency="enable_adb"/>
+
     <Preference
         android:key="verifier_device_identifier"
         style="?android:attr/preferenceInformationStyle"
