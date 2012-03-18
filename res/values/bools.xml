@@ -25,4 +25,7 @@
 
     <!-- Display additional System Update menu if true -->
     <bool name="config_additional_system_update_setting_enable">false</bool>
+
+    <!-- Display System Update menu if true -->
+    <bool name="config_system_update_setting_enable">true</bool>
 </resources>

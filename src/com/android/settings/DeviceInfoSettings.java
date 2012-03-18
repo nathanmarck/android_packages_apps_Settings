@@ -141,6 +141,13 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment {
         if (isUpdateSettingAvailable == false) {
             getPreferenceScreen().removePreference(findPreference(KEY_UPDATE_SETTING));
         }
+
+        // Read platform settings for system update setting
+        boolean isSysUpdateSettingAvailable =
+                getResources().getBoolean(R.bool.config_system_update_setting_enable);
+        if (isSysUpdateSettingAvailable == false) {
+            getPreferenceScreen().removePreference(findPreference(KEY_SYSTEM_UPDATE_SETTINGS));
+        }
     }
 
     @Override
