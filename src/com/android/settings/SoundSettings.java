@@ -49,6 +49,9 @@ import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.VolumePanel;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.SystemProperties;
 
 public class SoundSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -74,10 +77,13 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_QUIET_HOURS = "quiet_hours";
     private static final String KEY_VOLBTN_MUSIC_CTRL = "volbtn_music_controls";
     private static final String KEY_SAFE_HEADSET_RESTORE = "safe_headset_restore";
+    private static final String CAMERA_SHUTTER_MUTE = "camera-mute";
 
     private static final String SILENT_MODE_OFF = "off";
     private static final String SILENT_MODE_VIBRATE = "vibrate";
     private static final String SILENT_MODE_MUTE = "mute";
+
+    private static final String CAMERA_SHUTTER_DISABLE = "persist.sys.camera-mute";
 
     private static final String[] NEED_VOICE_CAPABILITY = {
             KEY_RINGTONE, KEY_DTMF_TONE, KEY_CATEGORY_CALLS,
@@ -100,6 +106,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Preference mNotificationPreference;
     private PreferenceScreen mQuietHours;
     private CheckBoxPreference mSafeHeadsetRestore;
+    private CheckBoxPreference mDisableCameraSound;
 
     private Runnable mRingtoneLookupRunnable;
 
@@ -214,6 +221,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
         mSoundSettings = (PreferenceGroup) findPreference(KEY_SOUND_SETTINGS);
         volumeSubNames = resolver.getContext().getResources().getStringArray(R.array.volume_overlay_entries);
+
+        mDisableCameraSound = (CheckBoxPreference) findPreference(CAMERA_SHUTTER_MUTE);
+        mDisableCameraSound.setChecked(SystemProperties.getInt(
+            CAMERA_SHUTTER_DISABLE, 0) != 0);
+        mDisableCameraSound.setOnPreferenceChangeListener(this);
 
         mMusicFx = mSoundSettings.findPreference(KEY_MUSICFX);
         Intent i = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
@@ -446,6 +458,29 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else if (preference == mVolBtnMusicCtrl) {
             Settings.System.putInt(getContentResolver(), Settings.System.VOLBTN_MUSIC_CONTROLS,
                     mVolBtnMusicCtrl.isChecked() ? 1 : 0);
+
+        } else if (preference == mDisableCameraSound) {
+            if (mDisableCameraSound.isChecked()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.sound_camera_shutter_disable_warning_title);
+                builder.setMessage(R.string.sound_camera_shutter_disable_warning);
+                builder.setPositiveButton(com.android.internal.R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            SystemProperties.set(CAMERA_SHUTTER_DISABLE, "1");
+                        }
+                    });
+                final CheckBoxPreference p = (CheckBoxPreference) preference;
+                builder.setNegativeButton(com.android.internal.R.string.cancel,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            p.setChecked(false);
+                        }
+                    });
+                builder.show();
+            } else{
+                SystemProperties.set(CAMERA_SHUTTER_DISABLE, "0");
+            }
 
         } else {
             // If we didn't handle it, let preferences handle it.

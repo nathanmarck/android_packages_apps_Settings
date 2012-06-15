@@ -40,4 +40,10 @@
     <!-- height of an expanded list item in edit playlist mode -->
     <dimen name="expanded_height">128dip</dimen>
     <dimen name="dialog_light_settings_width">400dip</dimen>
+
+    <dimen name="cfx_navbar_48">48.0dip</dimen>
+    <dimen name="cfx_navbar_42">42.0dip</dimen>
+    <dimen name="cfx_navbar_36">36.0dip</dimen>
+    <dimen name="cfx_navbar_24">24.0dip</dimen>
+
 </resources>
