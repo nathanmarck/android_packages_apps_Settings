@@ -1266,5 +1266,48 @@
         <item>86400</item>
     </string-array>
 
-    <!-- **** CYANOGENMOD EDITS END **** -->
+    <!-- Values for the navigation bar glow animation -->
+    <string-array name="entries_nav_bar_glow">
+        <item>@string/navigation_bar_glow_off</item>
+        <item>@string/navigation_bar_glow_fast</item>
+        <item>@string/navigation_bar_glow_default</item>
+    </string-array>
+
+    <string-array name="values_nav_bar_glow" translatable="false">
+        <item>0|0</item>
+        <item>25|250</item>
+        <item>50|500</item>
+    </string-array>
+
+    <string-array name="cfx_navbar_height_entries">
+        <item>48 dp (default)</item>
+        <item>42 dp</item>
+        <item>36 dp</item>
+        <item>24 dp</item>
+     </string-array>
+
+     <string-array name="cfx_navbar_height">
+        <item>48</item>
+        <item>42</item>
+        <item>36</item>
+        <item>24</item>
+     </string-array>
+
+    <string-array name="cfx_statusbar_transparency_entries">
+      <item>No transparency</item>
+      <item>25%</item>
+      <item>50%</item>
+      <item>75%</item>
+      <item>Full transparency</item>
+    </string-array>
+
+    <string-array name="cfx_statusbar_transparency_values">
+      <item>100</item>
+      <item>75</item>
+      <item>50</item>
+      <item>25</item>
+      <item>0</item>
+    </string-array>
+
+<!-- **** CYANOGENMOD EDITS END **** -->
 </resources>

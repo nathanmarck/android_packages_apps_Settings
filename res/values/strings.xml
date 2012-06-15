@@ -13,8 +13,28 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- CFX Settings -->
+    <string name="cfx_settings_title">ColdFusionX Settings</string>
+    <string name="cfx_navbar">Navbar Enable/Disable</string>
+    <string name="cfx_navbar_summary">Need to reboot for setting to take affect</string>
+    <string name="cfx_disable_bootanimation_title">Disable boot animation</string>
+    <string name="cfx_disable_bootanimation_summary">Don\'t show the boot animation for faster boot</string>
+    <string name="cfx_about_title">About</string>
+    <string name="cfx_web_title">About ColdFusionX</string>
+    <string name="cfx_web_summary">Visit MoDaCo thread</string>
+    <string name="cfx_about_thread">http://www.modaco.com/topic/348745-ics-cm9-404-coldfusionx-for-the-zte-skate-rom-updated-1506/</string>
+    <string name="partition_info_title">Partition info</string>
+    <string name="partition_info_summary">Show sizes of partitions on the phone</string>
+    <string name="partition_info_system">/system</string>
+    <string name="partition_info_data">/data</string>
+    <string name="partition_info_cache">/cache</string>
+    <string name="partition_info_sdcard">/sdcard (FAT)</string>
+    <string name="partition_info_sdext">/data/sdext2 (EXT)</string>
+    <string name="partition_info_used_of">/</string>
+    <string name="cfx_statusbar">Status Bar Settings</string>
+    <string name="cfx_statusbar_transparency">Statusbar Transparency</string>
+    <string name="cfx_statusbar_transparency_summary">Warning: turning this on might affect performance and battery life. Your UI will restart after changing this</string>
 
     <!-- String for ShortcutPickHelper -->
     <string name="picker_activities">Activities</string>
@@ -654,6 +674,11 @@
     <string name="link_volume_ringtones">Link ringtone + notification volume</string>
     <string name="link_volume_ringtones_toast">Make sure to change your volume to re-set your notification volume to match your ringtone volume.</string>
     <string name="link_volume_mutes">Link ringtone + notification mutes</string>
+    <string name="sound_camera_shutter_disable_title">Mute camera shutter</string>
+    <string name="sound_camera_shutter_disable_summary_on">Shutter sound will not be played</string>
+    <string name="sound_camera_shutter_disable_summary_off">Shutter sound will be played</string>
+    <string name="sound_camera_shutter_disable_warning_title">WARNING: This may be illegal!</string>
+    <string name="sound_camera_shutter_disable_warning">Disabling camera shutter sound is illegal in some Countries and Jurisdictions. Are you sure you want to disable it?</string>
 
     <!-- Quiet hours #CM -->
     <string name="quiet_hours_title">Quiet hours</string>
@@ -852,6 +877,12 @@
     <string name="navigation_bar_reset_message">Delete current settings and restore to default?</string>
     <string name="navigation_bar_save_message">Navigation bar settings saved</string>
     <string name="navigation_bar_reset_toast">Navigation bar reset to default</string>
+    <string name="navigation_bar_edit_title">Button customization</string>
+    <string name="navigation_bar_edit_summary">Edit button layout</string>
+    <string name="navigation_bar_glow_title">Glow animation duration</string>
+    <string name="navigation_bar_glow_off">Off</string>
+    <string name="navigation_bar_glow_fast">Fast</string>
+    <string name="navigation_bar_glow_default">Default</string>
 
     <!-- Power Widget #CM -->
     <string name="power_widget_title">Power widget</string>
@@ -932,6 +963,13 @@
     <string name="status_bar_signal_text_show_bars">Icon (default)</string>
     <string name="status_bar_signal_text_show_text">Text</string>
     <string name="status_bar_signal_text_hidden">Hidden</string>
+
+    <!-- Buttons #CM -->
+    <string name="buttons_title">Buttons</string>
+    <string name="buttons_show_action_overflow_title">Show action overflow</string>
+    <string name="buttons_show_action_overflow_summary">Displays the action overflow button within app interface</string>
+    <string name="buttons_app_switch_menu_swap_title">Menu key app switching</string>
+    <string name="buttons_app_switch_menu_swap_summary">Use the menu key for opening the app switcher, and long-press on home to open the menu</string>
 
     <string name="lock_screen_title">Lock screen</string>
 
@@ -4495,4 +4533,9 @@ found in the list of installed apps.</string>
     <!-- Status bar notification count -->
     <string name="status_bar_notif_count_title">Show notification count</string>
     <string name="status_bar_notif_count_summary">Display number of pending notifications on the status bar</string>
+
+    <!-- Status bar at bottom -->
+    <string name="status_bar_bottom_title">Display at bottom</string>
+    <string name="status_bar_bottom_summary">Move status bar to the bottom of the screen</string>
+
 </resources>
