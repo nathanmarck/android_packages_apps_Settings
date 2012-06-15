@@ -112,6 +112,13 @@
             android:summary="@string/volbtn_music_controls_summary"
             android:persistent="false" />
 
+    <CheckBoxPreference
+            android:key="camera-mute"
+            android:title="@string/sound_camera_shutter_disable_title"
+            android:summaryOn="@string/sound_camera_shutter_disable_summary_on"
+            android:summaryOff="@string/sound_camera_shutter_disable_summary_off"
+            android:persistent="false" />
+
     <ListPreference
             android:key="emergency_tone"
             android:title="@string/emergency_tone_title"

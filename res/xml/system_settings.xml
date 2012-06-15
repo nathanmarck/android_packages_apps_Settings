@@ -48,8 +48,29 @@
         android:dialogTitle="@string/dialog_title_font_size" />
 
     <PreferenceScreen
+        android:key="buttons"
+        android:fragment="com.android.settings.cyanogenmod.Buttons"
+        android:title="@string/buttons_title" />
+
+    <PreferenceCategory
         android:key="navigation_bar"
-        android:fragment="com.android.settings.cyanogenmod.NavBar"
-        android:title="@string/navigation_bar_title" />
+        android:title="@string/navigation_bar_title">
+
+        <PreferenceScreen
+            android:key="nav_bar_edit"
+            android:fragment="com.android.settings.cyanogenmod.NavBarEdit"
+            android:title="@string/navigation_bar_edit_title"
+            android:summary="@string/navigation_bar_edit_summary" />
+
+        <ListPreference
+            android:key="nav_bar_glow"
+            android:dialogTitle="@string/navigation_bar_glow_title"
+            android:title="@string/navigation_bar_glow_title"
+            android:entries="@array/entries_nav_bar_glow"
+            android:entryValues="@array/values_nav_bar_glow"
+            android:defaultValue="500|50"
+            android:persistent="false" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

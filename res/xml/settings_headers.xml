@@ -60,6 +60,12 @@
     <!-- INTERFACE -->
     <header android:title="@string/header_category_interface" />
 
+    <header
+        android:id="@+id/cfx_settings"
+        android:fragment="com.android.settings.cyanogenmod.ColdFusionX"
+        android:title="@string/cfx_settings_title"
+        android:icon="@drawable/ic_cfx_settings" />
+
     <!-- Launcher -->
     <header
         android:id="@+id/launcher_settings"
