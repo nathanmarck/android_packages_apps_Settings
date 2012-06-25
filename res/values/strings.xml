@@ -17,7 +17,7 @@
     <!-- CFX Settings -->
     <string name="cfx_settings_title">ColdFusionX Settings</string>
     <string name="cfx_navbar">Navbar Enable/Disable</string>
-    <string name="cfx_navbar_summary">Need to reboot for setting to take affect</string>
+    <string name="cfx_navbar_summary">Also known as soft keys</string>
     <string name="cfx_disable_bootanimation_title">Disable boot animation</string>
     <string name="cfx_disable_bootanimation_summary">Don\'t show the boot animation for faster boot</string>
     <string name="cfx_about_title">About</string>
@@ -34,7 +34,7 @@
     <string name="partition_info_used_of">/</string>
     <string name="cfx_statusbar">Status Bar Settings</string>
     <string name="cfx_statusbar_transparency">Statusbar Transparency</string>
-    <string name="cfx_statusbar_transparency_summary">Warning: turning this on might affect performance and battery life. Your UI will restart after changing this</string>
+    <string name="cfx_statusbar_transparency_summary">Warning: turning this on might affect performance and battery life. Your status bar will restart after changing this</string>
 
     <!-- String for ShortcutPickHelper -->
     <string name="picker_activities">Activities</string>
