@@ -72,5 +72,4 @@
         android:title="@string/cfx_web_title"
         android:summary="@string/cfx_web_summary" />
     </PreferenceCategory>
-
 </PreferenceScreen>
