@@ -17,8 +17,12 @@
 
 package com.android.settings.cyanogenmod;
 
+import java.io.IOException;
+
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.app.AlertDialog;
 import android.app.ActivityManagerNative;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -35,6 +39,9 @@ import android.util.Log;
 import android.net.Uri;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.view.IWindowManager;
+import android.os.ServiceManager;
+import android.os.IBinder;
+import android.os.IPowerManager;
 
 import android.provider.Settings;
 import android.os.SystemProperties;
@@ -46,9 +53,10 @@ public class ColdFusionX extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
     private static final String TAG = "CFXSettings";
     private static final String CFX_NAVBAR = "cfx_navbarenable";
+    private static final String CFX_STATUSBAR_TRANSPARENCY = "cfx_statusbar_transparency";
     private static final String DISABLE_BOOTANIMATION_PREF = "cfx_disable_bootanimation";
     private static final String DISABLE_BOOTANIMATION_PERSIST_PROP = "persist.sys.nobootanimation";
-    private static final String PREF_TRANSPARENCY = "cfx_statusbar_transparency";
+    private static final String CFX_NAVBAR_HEIGHT = "cfx_navbar_height";
 
     private final Configuration mCurConfig = new Configuration();
 
@@ -56,6 +64,7 @@ public class ColdFusionX extends SettingsPreferenceFragment implements
     private ListPreference mTransparency;
     private CheckBoxPreference mDisableBootanimPref;
     private ListPreference mNavigationBarHeight;
+    private Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,8 +87,13 @@ public class ColdFusionX extends SettingsPreferenceFragment implements
         mCFXNavbar.setChecked(Settings.System.getInt(getActivity().getContentResolver(), CFX_NAVBAR, 0) == 1);
         mDisableBootanimPref.setChecked("1".equals(disableBootanimation));
 
-        mNavigationBarHeight = (ListPreference) findPreference("cfx_navbar_height");
+        mNavigationBarHeight = (ListPreference) findPreference(CFX_NAVBAR_HEIGHT);
+        if (!mCFXNavbar.isChecked()) {
+            mNavigationBarHeight.setEnabled(false);
+        }
         mNavigationBarHeight.setOnPreferenceChangeListener(this);
+
+        mContext = getActivity().getBaseContext();
 
         findPreference("cfx_about").setOnPreferenceClickListener(
             new OnPreferenceClickListener() {
@@ -110,32 +124,11 @@ public class ColdFusionX extends SettingsPreferenceFragment implements
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (preference == mCFXNavbar) {
             Settings.System.putInt(getContentResolver(), CFX_NAVBAR, mCFXNavbar.isChecked() ? 1 : 0);
-            return true;
+            hotRebootDialog();
         } else if (preference == mDisableBootanimPref) {
             SystemProperties.set(DISABLE_BOOTANIMATION_PERSIST_PROP, mDisableBootanimPref.isChecked() ? "1" : "0");
-        } else if (preference == mNavigationBarHeight) {
-            String newVal = (String) newValue;
-            int dp = Integer.parseInt(newVal);
-            int height = mapChosenDpToPixels(dp);
-            Settings.System.putInt(getContentResolver(), Settings.System.CFX_NAVBAR_HEIGHT, height);
-            toggleBar();
-        } else if (preference == mTransparency) {
-            int val = Integer.parseInt((String) newValue);
-            result = Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.STATUS_BAR_TRANSPARENCY, val);
-            restartSystemUI();
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
-    }
-
-    public void toggleBar() {
-        boolean isBarOn = Settings.System.getInt(getContentResolver(),
-                Settings.System.CFX_NAVBAR, 0) == 1;
-        Handler h = new Handler();
-        Settings.System.putInt(mContext.getContentResolver(),
-                Settings.System.CFX_NAVBAR, isBarOn ? 0 : 1);
-        Settings.System.putInt(mContext.getContentResolver(),
-                Settings.System.CFX_NAVBAR, isBarOn ? 1 : 0);
     }
 
     public int mapChosenDpToPixels(int dp) {
@@ -152,10 +145,53 @@ public class ColdFusionX extends SettingsPreferenceFragment implements
         return -1;
     }
 
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        boolean result = false;
+        if (preference == mTransparency) {
+            int val = Integer.parseInt((String) newValue);
+            result = Settings.System.putInt(getActivity().getContentResolver(), Settings.System.CFX_STATUSBAR_TRANSPARENCY, val);
+            restartSystemUI();
+            return true;
+        } else if (preference == mNavigationBarHeight) {
+            String newVal = (String) newValue;
+            int dp = Integer.parseInt(newVal);
+            int height = mapChosenDpToPixels(dp);
+            result = Settings.System.putInt(getActivity().getContentResolver(), Settings.System.CFX_NAVBAR_HEIGHT, height);
+            hotRebootDialog();
+            return true;
+            //restartSystemServer();
+        }
+        return false;
+    }
 
-    public boolean onPreferenceChange(Preference preference, Object objValue) {
-        final String key = preference.getKey();
+    private void hotRebootDialog() {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Hot Reboot required!")
+                    .setMessage("Please hot reboot to enable/disable the navigation bar properly!")
+                    .setNegativeButton("I'll reboot later", null)
+                    .setCancelable(false)
+                    .setPositiveButton("Hot Reboot now!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                IBinder b = ServiceManager.getService(Context.POWER_SERVICE);
+                                IPowerManager pm = IPowerManager.Stub.asInterface(b);
+                                pm.crash("Restarting UI");
+                            } catch (android.os.RemoteException e) {
+                                //
+                            }
+                        }
+                    })
+                    .create()
+                    .show();
+    }
 
-        return true;
+    private void restartSystemUI() {
+        try {
+            Runtime.getRuntime().exec("pkill -TERM -f com.android.systemui");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
