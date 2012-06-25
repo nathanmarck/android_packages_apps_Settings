@@ -25,6 +25,7 @@
     <CheckBoxPreference
         android:key="cfx_navbarenable"
         android:title="@string/cfx_navbar"
+        android:summary="@string/cfx_navbar_summary"
         android:defaultValue="false" />
     <ListPreference
         android:entries="@array/cfx_navbar_height_entries"
