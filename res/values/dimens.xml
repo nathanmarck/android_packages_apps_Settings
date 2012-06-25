@@ -44,6 +44,7 @@
     <dimen name="cfx_navbar_48">48.0dip</dimen>
     <dimen name="cfx_navbar_42">42.0dip</dimen>
     <dimen name="cfx_navbar_36">36.0dip</dimen>
+    <dimen name="cfx_navbar_30">30.0dip</dimen>
     <dimen name="cfx_navbar_24">24.0dip</dimen>
 
 </resources>

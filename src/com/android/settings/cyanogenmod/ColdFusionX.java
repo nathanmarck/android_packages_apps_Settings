@@ -139,6 +139,8 @@ public class ColdFusionX extends SettingsPreferenceFragment implements
                 return getResources().getDimensionPixelSize(R.dimen.cfx_navbar_42);
             case 36:
                 return getResources().getDimensionPixelSize(R.dimen.cfx_navbar_36);
+            case 30:
+                return getResources().getDimensionPixelSize(R.dimen.cfx_navbar_30);
             case 24:
                 return getResources().getDimensionPixelSize(R.dimen.cfx_navbar_24);
         }
