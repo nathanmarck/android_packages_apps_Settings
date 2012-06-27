@@ -15,13 +15,13 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- CFX Settings -->
-    <string name="cfx_settings_title">ColdFusionX Settings</string>
+    <string name="cfx_settings_title">GenesisICS ROM Settings</string>
     <string name="cfx_navbar">Navbar Enable/Disable</string>
     <string name="cfx_navbar_summary">Also known as soft keys</string>
     <string name="cfx_disable_bootanimation_title">Disable boot animation</string>
     <string name="cfx_disable_bootanimation_summary">Don\'t show the boot animation for faster boot</string>
     <string name="cfx_about_title">About</string>
-    <string name="cfx_web_title">About ColdFusionX</string>
+    <string name="cfx_web_title">About GenesisICS</string>
     <string name="cfx_web_summary">Visit MoDaCo thread</string>
     <string name="cfx_about_thread">http://www.modaco.com/topic/348745-ics-cm9-404-coldfusionx-for-the-zte-skate-rom-updated-1506/</string>
     <string name="partition_info_title">Partition info</string>
